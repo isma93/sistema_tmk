@@ -1,0 +1,16 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectUser`(
+				IN userby VARCHAR(255),
+                IN passwordby VARCHAR(255)
+			)
+BEGIN
+			SELECT * FROM factura_usuarios where email = userby and password = passwordby;
+            END$$
+DELIMITER ;
+
+
+
+//CREAR USUARIO QUE ESTA EN EL INCLUDE EN PHPMYADMIN PARA ERROR PASSWORD YES DENIED.
+
+
+//TEST
