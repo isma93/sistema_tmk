@@ -505,36 +505,16 @@ function myFunction() {
 								<div >
 													<div class= "form-group">
 												  
-													<div>	
-
-													<div class="form-group">
-
-	<select tabindex="2" name="clienteseleccionado" id="clienteseleccionado"  class="form-control">
-	<option value="0">Seleccione Cliente..</option>
-
-	<?php
-	$cid=$_SESSION['codigo_empleado'];
-	$query="call SP_TMK_LISTAR_CLIENTES_EMPLEADOS('$cid')";
-	$resultado=mysqli_query( $conexion, $query ) or die ( "Error de base de datos");
-	$p = 1;
-	while ($row=mysqli_fetch_array($resultado))
-	{
-	?>
-	<option 
-	<?php $_SESSION['codigo_empleado'.$p]=$row['codigo_empleado'];
-	$_SESSION['id_cliente'.$p]=$row['id_cliente'];						
-	?>
-	value="<?php echo $row['codigo_empleado']; ?>"    > <?php echo $row['nombre_cliente']; ?> </option>
-	<?php  $p++;
-	} ?>
-	</select>
-</div>
-
-														
-															</div>
 													
+														<!--aca va el sp de lista de clientes -->
+
+
 													</div>
 	   
+													
+								</div>
+								<div >
+												
 													
 								</div>
 
