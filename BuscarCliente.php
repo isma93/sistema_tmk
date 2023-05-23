@@ -17,7 +17,7 @@
 			mysqli_set_charset($conexion,"utf8");
 				
 				
-				$cid=$_SESSION['codigo_empleado'];
+				$cid=$_POST['clienteseleccionado'];
 				$query="call SP_TMK_LISTAR_CLIENTES_EMPLEADOS('$cid')";
 				$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los registros");
 

@@ -8,7 +8,6 @@ header("Pragma: no-cache");
 
 include('include/config.inc');
 $conexion = mysqli_connect($servidor,$usuario,$contrasena,$basededatos);
-mysqli_set_charset($conexion,"utf8");
 ?>
 <head>
 <meta charset="utf-8">
@@ -243,13 +242,12 @@ var descripPromocion = document.getElementById("descripPromocion").value
 var cantidad = document.getElementById("cantidad").value
 var nam = document.getElementById("nombreProducto").value
 if (nam == ""){alert("Debe de buscar un producto con su código para continuar");return false;}
-if (descripPromocion == ""){
-alert("Debes llenar el campo de Ruta")
+else if (descripPromocion == ""){
+//alert("Debes llenar el campo de Ruta")
 
 alert("Debe ingresar una descripcion promocional");
 return false;
-}
-else if (cantidad == "") { alert("Debe ingresar una cantidad de producto"); return false; } else 
+}else if (cantidad == "") { alert("Debe ingresar una cantidad de producto"); return false; } else 
 {
 
 	
@@ -488,46 +486,71 @@ function myFunction() {
 
 			<!-- Aca ingresar la otra tabla-->
 
+
+
+					   
+
 				  
 								<div >
 													<div class= "form-group">
 												  
 													
-													<input align="right" class="tn btn-info btn-lg btn-block" type="submit" id="btn-enviar" value="Buscar cliente" name="BuscarCliente"></input>
+													<input align="right" class="tn btn-info btn-lg btn-block" type="submit" id="btn-enviar" value="Seleccionar Cliente" name="BuscarCliente"></input>
 												
 													</div>
-	   
-													
+
+											   
+								   
 								</div>
 
-
-								
-								<div >
-													<div class= "form-group">
-												  
-													
-														<!--aca va el sp de lista de clientes -->
-
-
-													</div>
-	   
-													
-								</div>
-								<div >
-												
-													
-								</div>
-
-
-
-								
-					
 								<div class="form-group">
 
-								</div>
+														<select tabindex="2" name="clienteseleccionado" id="clienteseleccionado"  class="form-control">
+														<option value="0">Seleccione Cliente..</option>
+
+														<?php
+														$cid=$_SESSION['codigo_empleado'];
+														$query="call SP_TMK_LISTAR_CLIENTES_EMPLEADOS('$cid')";
+														$resultado=mysqli_query( $conexion, $query ) or die ( "Error de base de datos");
+														$p = 1;
+														while ($row=mysqli_fetch_array($resultado))
+														{
+														?>
+														<option 
+														<?php 
+														$_SESSION['codigo_empleado'.$p]=$row['codigo_empleado'];
+														$_SESSION['id_cliente'.$p]=$row['id_cliente'];						
+														?>
+														value="<?php echo $row['codigo_empleado']; ?>"    > <?php echo $row['nombre_cliente']; ?> </option>
+														<?php  $p++;
+														} ?>
+														</select>
+
+
+														
+															</div>
+
+
+
+
+								<div>	
+
+							
 
 								
-								
+									</div>
+																	
+							
+
+
+								<div class="form-group">
+
+
+									
+								</div>
+
+
+			
 
 
 								<div class="form-group"  autocomplete="off">
@@ -536,11 +559,11 @@ function myFunction() {
 								<br>
 								<div class="panel panel-primary">
 
-						<div class="panel-heading">Datos seleccionados</div>	
+<div class="panel-heading">Datos seleccionados</div>	
 
-						<div class="panel-body">
-														</div>
-						<div class="panel-body">
+<div class="panel-body">
+								</div>
+<div class="panel-body">
 
 
 
@@ -561,6 +584,25 @@ function myFunction() {
 <!---------------------------------------------- -->
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -633,7 +675,7 @@ function myFunction() {
 																<div>	
 
 																<select name="te" id="te"  class="form-control">
-																	<option value="0">Seleccione su uso</option>
+																	<option value="0">Seleccione Producto</option>
 												
 																	<?php
 																		$query=" select * FROM producto;";
