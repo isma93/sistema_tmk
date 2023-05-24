@@ -680,7 +680,8 @@ function myFunction() {
 																	<option value="0">Seleccione Producto</option>
 												
 																	<?php
-																		$query=" select * FROM producto;";
+																		$variableprod = "120037";
+																		$query="call SP_TMK_LISTAR_CLIENTES_PRODCUTO ('$variableprod')";
 																		$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 																		$i = 0;
 																		while ($row=mysqli_fetch_array($resultado))
@@ -689,13 +690,16 @@ function myFunction() {
 																			
 
 																		<option 
-																				<?php $_SESSION['codigo_producto'.$i]=$row['codigo_producto'];
+
+																				<?php
+																				$_SESSION['marca_producto'.$i]=$row['marca_producto'];
+																				$_SESSION['id_producto'.$i]=$row['id_producto'];
 																				$_SESSION['nombre_producto'.$i]=$row['nombre_producto'];
 																				
 																				
 																				 ?>
 
-																				value="<?php echo $row['codigo_producto']; ?>"    > <?php echo $row['codigo_producto'];echo " - ";  echo $row['nombre_producto']; ?> </option>
+																				value="<?php echo $row['id_producto']; ?>"    > <?php echo $row['marca_producto'];echo " - "; echo $row['id_producto'];echo " - ";  echo $row['nombre_producto']; ?> </option>
 																				<?php  $i++;
 																	} ?>
 																	</select><br>
