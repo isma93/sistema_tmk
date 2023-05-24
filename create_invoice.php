@@ -507,7 +507,7 @@ function myFunction() {
 
 											<select tabindex="2" name="clienteseleccionado" id="clienteseleccionado"  class="form-control">
 												<option value="0">Seleccione Cliente..</option>
-
+														
 														<?php  
 														$cid=$_SESSION['codigo_empleado'];
 														$query="call SP_TMK_LISTAR_CLIENTES_EMPLEADOS('$cid')";
@@ -523,6 +523,7 @@ function myFunction() {
 														}  
 														//mysqli_close($conexion);
 														mysqli_next_result($conexion); 
+														//comentario
 														
 														?>
 											</select>
