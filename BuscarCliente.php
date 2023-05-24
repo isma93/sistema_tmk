@@ -17,8 +17,8 @@
 			mysqli_set_charset($conexion,"utf8");
 				
 				
-				$cid=$_POST['clienteseleccionado'];
-				$query="call SP_TMK_LISTAR_CLIENTES_EMPLEADOS('$cid')";
+				$clientelista=$_POST['clienteseleccionado'];
+				$query="call SP_TMK_LISTAR_CLIENTE_SELECCIONADO ('$clientelista')";
 				$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los registros");
 
 				if ($resultado){

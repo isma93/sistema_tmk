@@ -518,7 +518,7 @@ function myFunction() {
 														?>
 														<option 
 														
-														value="<?php echo $row['codigo_empleado']; ?>" >  <?php echo $row['nombre_cliente']; ?> </option>
+														value="<?php echo $row['id_cliente']; ?>" >  <?php echo $row['nombre_cliente']; ?> </option>
 														<?php  $p++;
 														}  
 														//mysqli_close($conexion);
@@ -680,7 +680,8 @@ function myFunction() {
 																	<option value="0">Seleccione Producto</option>
 												
 																	<?php
-																		$variableprod = "120037";
+																		
+																		$variableprod = $_SESSION['id_cliente'];
 																		$query="call SP_TMK_LISTAR_CLIENTES_PRODCUTO ('$variableprod')";
 																		$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 																		$i = 0;
