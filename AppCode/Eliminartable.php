@@ -28,7 +28,10 @@ echo $_SESSION['delete_this'];
 									$_SESSION['nombreProducto'.$com]='Eliminado';
 									$_SESSION['cantidad'.$com]=0;					
 									$_SESSION['Entidad'.$com]=0;
-									$_SESSION['descripPromocion'.$ID]="Eliminado";
+									$_SESSION['P_PRECIO'.$com]=0;
+									$_SESSION['GRANTOTALVAR']=$_SESSION['GRANTOTALVAR']-$_SESSION['SUBTOTAL'.$com];
+									$_SESSION['SUBTOTAL'.$com]=0;
+									//$_SESSION['descripPromocion'.$ID]="Eliminado";
                                     echo '<script>
 													  
 									 window.location = "../create_invoice.php";

@@ -505,10 +505,10 @@ function myFunction() {
 
 								<div class="form-group">
 
-														<select tabindex="2" name="clienteseleccionado" id="clienteseleccionado"  class="form-control">
-														<option value="0">Seleccione Cliente..</option>
+											<select tabindex="2" name="clienteseleccionado" id="clienteseleccionado"  class="form-control">
+												<option value="0">Seleccione Cliente..</option>
 
-														<?php
+														<?php  
 														$cid=$_SESSION['codigo_empleado'];
 														$query="call SP_TMK_LISTAR_CLIENTES_EMPLEADOS('$cid')";
 														$resultado=mysqli_query( $conexion, $query ) or die ( "Error de base de datos");
@@ -517,18 +517,19 @@ function myFunction() {
 														{
 														?>
 														<option 
-														<?php 
-														$_SESSION['codigo_empleado'.$p]=$row['codigo_empleado'];
-														$_SESSION['id_cliente'.$p]=$row['id_cliente'];						
-														?>
-														value="<?php echo $row['codigo_empleado']; ?>"    > <?php echo $row['nombre_cliente']; ?> </option>
+														
+														value="<?php echo $row['codigo_empleado']; ?>" >  <?php echo $row['nombre_cliente']; ?> </option>
 														<?php  $p++;
-														} ?>
-														</select>
+														}  
+														//mysqli_close($conexion);
+														mysqli_next_result($conexion); 
+														
+														?>
+											</select>
 
 
 														
-															</div>
+								</div>
 
 
 
@@ -727,7 +728,7 @@ function myFunction() {
 
 														<div class="form-group">
 															
-														<input <?php if (isset($_SESSION['ingreso_des'])){ if($_SESSION['ingreso_des']==true){}else{echo "readonly";} }else {echo "readonly";}?> maxlength="44" tabindex="6" type="text" class="form-control" name="descripPromocion" id="descripPromocion" placeholder="Precio" autocomplete="off">
+														<input <?php if (isset($_SESSION['ingreso_des'])){ if($_SESSION['ingreso_des']==true){}else{echo "readonly";} }else {echo "readonly";}?> maxlength="44" tabindex="6" type="text" class="form-control" name="p_precio" id="p_precio" placeholder="Precio" autocomplete="off">
 															
 														</div>
 													
@@ -799,8 +800,8 @@ function myFunction() {
 										 <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="10%"> <?php echo strval($codificar);?></td> <?php } ?> 
 										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="30%"> <?php echo $_SESSION['nombreProducto'.$i];?></td><?php }  ?> 
 										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="15%"><?php echo $_SESSION['cantidad'.$i];?></td> <?php }  ?> 
-										  <?php  if ($_SESSION['codigo'.$i]<=0){} else{?><td width="15%"><?php echo $_SESSION['Entidad'.$i];?> </td> <?php } ?> 
-										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?> <td width="70%"> <?php echo $_SESSION['descripPromocion'.$i];?> <?php } ?> </td>
+										  <?php  if ($_SESSION['codigo'.$i]<=0){} else{?><td width="15%"><?php if(isset($_SESSION['P_PRECIO'.$i])) echo $_SESSION['P_PRECIO'.$i];?> </td> <?php } ?> 
+										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?> <td width="70%"> <?php  if(isset($_SESSION['SUBTOTAL'.$i]))  echo $_SESSION['SUBTOTAL'.$i];?> <?php } ?> </td>
 										<?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="20%"> <a class="btn btn-danger" href='./AppCode/Eliminartable.php?id=<?php echo $_SESSION['nombreProducto'.$i]?>&com=<?php echo $i ?>' > <i class="fa fa-trash"></i></a> <?php }  ?>
 										<?php  $i++;
 									} }?>
@@ -828,8 +829,8 @@ function myFunction() {
         <div class="form-group">
             <label>Gran total: &nbsp;</label>
             <div class="input-group">
-                <div class="input-group-addon currency">$</div>
-                <input value="" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
+                <div class="input-group-addon currency"><div style="font-size:10px">$</div></div>
+                <input readonly value="<?php if (isset($_SESSION['GRANTOTALVAR'])) echo $_SESSION['GRANTOTALVAR'];  ?>" type="" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
             </div>
         </div>
         

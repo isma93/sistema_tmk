@@ -12,10 +12,11 @@ session_start();
 
 
 $codigo=$_POST["codigo"];
+$p_precio=$_POST["p_precio"];
 $nombreProducto=$_POST["nombreProducto"];
 $cantidad=$_POST["cantidad"];
 $Entidad=$_POST["Entidad"];
-$descripPromocion=$_POST["descripPromocion"];
+//$descripPromocion=$_POST["descripPromocion"];
 
 
 
@@ -61,14 +62,24 @@ if ($repetido==false){
 					}
 									if (empty($_SESSION['validadorv2'])){$_SESSION['validadorv2']=1;}else{$_SESSION['validadorv2']=$_SESSION['validadorv2']+1;}
 									
-								
+									
+									
+
+
 									$i = 1;
 									$u= $_SESSION['contado'];
 									$_SESSION['codigo'.$u]=$codigo;
 									$_SESSION['nombreProducto'.$u]=$nombreProducto;
 									$_SESSION['cantidad'.$u]=$cantidad;					
 									$_SESSION['Entidad'.$u]=$Entidad;
-									$_SESSION['descripPromocion'.$u]=$descripPromocion;
+									//$_SESSION['descripPromocion'.$u]=$descripPromocion;
+									$_SESSION['P_PRECIO'.$u]=$p_precio;
+									$_SESSION['SUBTOTAL'.$u]=$p_precio*$cantidad;
+									//if (isset($_SESSION['GRANTOTALVAR']))
+									$_SESSION['GRANTOTALVAR']=$_SESSION['GRANTOTALVAR']+$_SESSION['SUBTOTAL'.$u];
+
+
+
 									while ($i <= $_SESSION['contado']){
 										?>
 									
