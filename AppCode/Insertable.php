@@ -26,7 +26,7 @@
 
 
             
-            $query="select id_nota_egreso from nota_egreso order by  id_nota_egreso desc LIMIT 1";
+            $query="select id_tmk_desalojo from tmk_desalojo order by  id_tmk_desalojo desc LIMIT 1";
 
 			
 
@@ -37,7 +37,7 @@
 
                 while ($row=mysqli_fetch_array($resultado))
 				{
-                    $_SESSION['ultcontador'] = $row['id_nota_egreso'];
+                    $_SESSION['ultcontador'] = $row['id_tmk_desalojo'];
 
                 }
 				$_SESSION['notas']=$_POST['notas'];
@@ -48,8 +48,8 @@
 				$y=$_SESSION['ultcontador'];
 
 
-				$ruta1=$_SESSION['rutacliente'];
-			if (isset($_SESSION['canales'] ) && isset($_SESSION['id_cliente'] ) && isset($_SESSION['direccion'] )){
+				//$ruta1=$_SESSION['rutacliente'];
+			if (isset($_SESSION['id_cliente'] )){
 				$idcliente=$_SESSION['id_cliente'];
 				$direccion=$_SESSION['direccion'];
 				$id_canal=$_SESSION['canales'];
@@ -74,7 +74,7 @@ else {
 		   }
 		});</script>';
 }
-				if ($ruta1)
+			/*	if ($ruta1)
 															{
 																$Rut=$ruta1;
 																$query="Select*from ruta where id_ruta='$Rut'";
@@ -87,22 +87,23 @@ else {
 																	$z++;
 																}
 															}
-
+			*/
 
 try{
 	if (isset($idcliente)){
 
 		date_default_timezone_set('America/El_Salvador');    
-$DateAndTime = date('Y-m-d H:i:s ', time());  
+		$DateAndTime = date('Y-m-d H:i:s ', time());  
 
-				$query="insert into nota_egreso (id_nota_egreso_interna, fecha_ingreso, id_cliente, direccion_entrega, id_ruta, codigo_empleado, id_cuenta, id_uso, fecha_entrega, id_cargo_entidad, notas, id_ultimo_estado, id_canal) values ('$codificador','$DateAndTime','$idcliente','$direccion',$ruta,'$id_employe','1','1',NOW(),'1','$notas','1','$id_canal'	);";
+				$query="insert into tmk_desalojo (fecha_sistema, fecha_desalojo, id_cliente,  id_empleado,id_ultimo_estado,notas, id_interno_desalojo) 
+				values ('$DateAndTime','$DateAndTime','$idcliente','$id_employe','1','$notas','$codificador');";
 				$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
-}}catch (Exception $e){}
+		}}catch (Exception $e){}
 				if ($resultado)
 				{
 					
 					   
-					$query="select id_detalle_nota_egreso from detalle_nota_egreso order by  id_detalle_nota_egreso desc LIMIT 1";
+					$query="select id_detalle_desalojo from tmk_detalle_desalojo order by  id_detalle_desalojo desc LIMIT 1";
 
 			
 
@@ -112,8 +113,8 @@ $DateAndTime = date('Y-m-d H:i:s ', time());
 
 											while ($row=mysqli_fetch_array($resultado))
 											{
-												$_SESSION['id_detalle_n'] = $row['id_detalle_nota_egreso'];
-												$k=$row['id_detalle_nota_egreso']+1;
+												$_SESSION['id_detalle_n'] = $row['id_detalle_desalojo'];
+												$k=$row['id_detalle_desalojo']+1;
 											}
 
 
@@ -129,8 +130,11 @@ $DateAndTime = date('Y-m-d H:i:s ', time());
 																																
 																																		$id_producto = $_SESSION['codigo'.$i];									
 																																		$cantidad =	$_SESSION['cantidad'.$i];
-																																		$descripPromocion= $_SESSION['descripPromocion'.$i];
-																																		$query="insert into detalle_nota_egreso (id_entidad, id_producto, id_tipo_medida, id_nota_interna, cantidad, descripcion_promocion ) values ('1','$id_producto','1','$codificador','$cantidad','$descripPromocion');";
+																																		$precio = $_SESSION['P_PRECIO'.$i];
+																																		$venta = $_SESSION['SUBTOTAL'.$i];
+																																		
+																																		$query="insert into tmk_detalle_desalojo (id_interno_desalojo, id_producto, cajas_vendidas, id_unidad_medida, precio_unitario, venta ) 
+																																		values ('$codificador','$id_producto','$cantidad','1','$precio','$venta');";
 																																		$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 																																
 																																		$k=$k+1;
@@ -144,7 +148,8 @@ $DateAndTime = date('Y-m-d H:i:s ', time());
 																																<?php  $i++;
 																														} 
 
-																					$query="insert into bitacora_estados_nota_egreso (id_empleado, id_estado, id_nota_egreso_interna, fecha_estado) values ('$id_employe','1','$codificador','$DateAndTime');";
+																					$query="insert into tmk_bitacora_estado_desalojo (id_empleado, id_estado, id_interno_desalojo, fecha_estado) 
+																					values ('$id_employe','1','$codificador','$DateAndTime');";
 																				    $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 																				 if ($resultado)
 																				 {
@@ -162,7 +167,7 @@ $DateAndTime = date('Y-m-d H:i:s ', time());
 																						$padre=	$_SESSION['id_padre'] ;
 																						$id_revisado=$_SESSION['id_revisado'];
 																						$aut=$_SESSION['id_autorizado'];
-																		$_SESSION = array();
+																						$_SESSION = array();
 															
 																							$_SESSION['codigo_empleado']=$codigo_empleado ;
 																							$_SESSION['email']= $email;
@@ -177,7 +182,7 @@ $DateAndTime = date('Y-m-d H:i:s ', time());
 																					echo	'<script>
 																						Swal.fire({
 																						icon: "success",
-																						title: "Nota de registro ingresada exitosa mente! tu codigo de nota de egreso es:  '.$codificador.'",
+																						title: "¡Nota de remisión ingresada exitosa mente! tu código es:  '.$codificador.'",
 																						allowOutsideClick: false,
 																						showConfirmButton: true,
 																						confirmButtonText: "Continuar"

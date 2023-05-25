@@ -185,7 +185,7 @@ body {
 		}
 		else {
 					var notas = document.getElementById("notas").value
-					if (confirm("¿Realmente deseas enviar esta nota de egreso?") == true) {
+					if (confirm("¿Realmente deseas enviar esta nota de remisión?") == true) {
 						document.getElementById('insert-nt').submit();
 					} else {
 					return false;
@@ -785,10 +785,10 @@ function myFunction() {
 					<tr>
 						<thead >
 						<th width="10%">Código</th>
-						<th width="30%">Nombre Producto</th>
+						<th width="50%">Nombre Producto</th>
 						<th width="15%">Cantidad</th>
 						<th width="15%">Precio</th>								
-						<th width="70%">Sub Total</th>
+						<th width="10%">Sub Total</th>
 						<th width="20%">Acción</th>
 						</thead>
 					</tr>	
@@ -804,10 +804,10 @@ function myFunction() {
 									$codificar ="";
 									$codificar = $_SESSION['codigo'.$i]; ?>
 										 <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="10%"> <?php echo strval($codificar);?></td> <?php } ?> 
-										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="30%"> <?php echo $_SESSION['nombreProducto'.$i];?></td><?php }  ?> 
+										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="50%"> <?php echo $_SESSION['nombreProducto'.$i];?></td><?php }  ?> 
 										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="15%"><?php echo $_SESSION['cantidad'.$i];?></td> <?php }  ?> 
 										  <?php  if ($_SESSION['codigo'.$i]<=0){} else{?><td width="15%"><?php if(isset($_SESSION['P_PRECIO'.$i])) echo $_SESSION['P_PRECIO'.$i];?> </td> <?php } ?> 
-										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?> <td width="70%"> <?php  if(isset($_SESSION['SUBTOTAL'.$i]))  echo $_SESSION['SUBTOTAL'.$i];?> <?php } ?> </td>
+										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?> <td width="10%"> <?php  if(isset($_SESSION['SUBTOTAL'.$i]))  echo $_SESSION['SUBTOTAL'.$i];?> <?php } ?> </td>
 										<?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="20%"> <a class="btn btn-danger" href='./AppCode/Eliminartable.php?id=<?php echo $_SESSION['nombreProducto'.$i]?>&com=<?php echo $i ?>' > <i class="fa fa-trash"></i></a> <?php }  ?>
 										<?php  $i++;
 									} }?>
@@ -862,7 +862,7 @@ function myFunction() {
 				<br>
 				<div class="form-group">
 					
-					<input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar Nota" class="tn btn-success btn-lg btn-block">						
+					<input data-loading-text="Guardando Remisión..." type="submit" name="invoice_btn" value="Guardar Remisión" class="tn btn-success btn-lg btn-block">						
 								
 				</div>
 				
