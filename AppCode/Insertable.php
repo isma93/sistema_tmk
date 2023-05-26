@@ -118,11 +118,11 @@ try{
 											}
 
 
-										if (isset($_SESSION['contado'])){		
-											
-																					$i=1;	
-																					while ($i <= $_SESSION['contado']){
-																																?>
+																				if (isset($_SESSION['contado'])){		
+												
+																										$i=1;	
+																										while ($i <= $_SESSION['contado']){
+																															?>
 																															
 																															<?php if ($_SESSION['codigo'.$i]<=0){}
 																															
@@ -133,7 +133,7 @@ try{
 																																		$precio = $_SESSION['P_PRECIO'.$i];
 																																		$venta = $_SESSION['SUBTOTAL'.$i];
 																																		
-																																		$query="insert into tmk_detalle_desalojo (id_interno_desalojo, id_producto, cajas_vendidas, id_unidad_medida, precio_unitario, venta ) 
+																																		$query="insert into tmk_detalle_desalojo (id_interno_desalojo, id_producto, cajas_vendidas, id_unidad_medida, precio_unitario, venta) 
 																																		values ('$codificador','$id_producto','$cantidad','1','$precio','$venta');";
 																																		$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 																																
