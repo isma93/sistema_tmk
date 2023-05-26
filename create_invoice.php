@@ -518,7 +518,7 @@ function myFunction() {
 														?>
 														<option 
 														
-														value="<?php echo $row['id_cliente']; ?>" >  <?php echo $row['nombre_cliente']; ?> </option>
+														value="<?php echo $row['id_cliente']; ?>" >  <?php echo $row['id_cliente'];echo " - "; echo $row['nombre_cliente'];  ?> </option>
 														<?php  $p++;
 														}  
 														//mysqli_close($conexion);
@@ -669,7 +669,7 @@ function myFunction() {
 
 
 														<div class="form-group">
-																<button class="tn btn-info btn-lg btn-block" name="BuscarProducto" ONCLICK="location.href='BuscarProducto.php'">Buscar producto</button>
+																<button class="tn btn-info btn-lg btn-block" name="BuscarProducto" ONCLICK="location.href='BuscarProducto.php'">Seleccionar producto</button>
 																</div>
 																<div class="form-group">
 																<!--<input tabindex="4"  value="<?php // if (isset($_SESSION['nombre_producto'])){if(isset($localkey)){if ($localkey==true){$_SESSION['id_producto']='';}else {echo $_SESSION['id_producto'];}} else {echo $_SESSION['id_producto'];} }else {}?>" type="text" class="form-control" name="te" placeholder="Código Producto" autocomplete="off">
@@ -785,9 +785,9 @@ function myFunction() {
 					<tr>
 						<thead >
 						<th width="10%">Código</th>
-						<th width="50%">Nombre Producto</th>
+						<th width="55%">Nombre Producto</th>
 						<th width="15%">Cantidad</th>
-						<th width="15%">Precio</th>								
+						<th width="10%">Precio</th>								
 						<th width="10%">Sub Total</th>
 						<th width="20%">Acción</th>
 						</thead>
@@ -804,9 +804,9 @@ function myFunction() {
 									$codificar ="";
 									$codificar = $_SESSION['codigo'.$i]; ?>
 										 <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="10%"> <?php echo strval($codificar);?></td> <?php } ?> 
-										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="50%"> <?php echo $_SESSION['nombreProducto'.$i];?></td><?php }  ?> 
+										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="55%"> <?php echo $_SESSION['nombreProducto'.$i];?></td><?php }  ?> 
 										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="15%"><?php echo $_SESSION['cantidad'.$i];?></td> <?php }  ?> 
-										  <?php  if ($_SESSION['codigo'.$i]<=0){} else{?><td width="15%"><?php if(isset($_SESSION['P_PRECIO'.$i])) echo $_SESSION['P_PRECIO'.$i];?> </td> <?php } ?> 
+										  <?php  if ($_SESSION['codigo'.$i]<=0){} else{?><td width="10%"><?php if(isset($_SESSION['P_PRECIO'.$i])) echo $_SESSION['P_PRECIO'.$i];?> </td> <?php } ?> 
 										  <?php if ($_SESSION['codigo'.$i]<=0){} else{?> <td width="10%"> <?php  if(isset($_SESSION['SUBTOTAL'.$i]))  echo $_SESSION['SUBTOTAL'.$i];?> <?php } ?> </td>
 										<?php if ($_SESSION['codigo'.$i]<=0){} else{?><td width="20%"> <a class="btn btn-danger" href='./AppCode/Eliminartable.php?id=<?php echo $_SESSION['nombreProducto'.$i]?>&com=<?php echo $i ?>' > <i class="fa fa-trash"></i></a> <?php }  ?>
 										<?php  $i++;
@@ -832,11 +832,11 @@ function myFunction() {
 
 							<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <span class="form-inline" id="invoiceItem">
-        <div class="form-group">
+        <div class="form-group" style="font-size:20px">
             <label>Gran total: &nbsp;</label>
             <div class="input-group">
-                <div class="input-group-addon currency"><div style="font-size:10px">$</div></div>
-                <input readonly value="<?php if (isset($_SESSION['GRANTOTALVAR'])) echo $_SESSION['GRANTOTALVAR'];  ?>" type="" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
+                <div class="input-group-addon currency"><div style="font-size:20px">$</div></div>
+                <input readonly value="<?php if (isset($_SESSION['GRANTOTALVAR'])) echo $_SESSION['GRANTOTALVAR'];  ?>" type="" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal" style="font-size:20px">
             </div>
         </div>
         

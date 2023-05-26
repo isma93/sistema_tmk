@@ -99,8 +99,8 @@ function ancla()
 
   <?php
   //Parametros de reenvio
-  $ingresar_nota=  '<a href="../create_invoice.php"  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Ingresar Nota de Egreso</a>';
- $revisar='<a href="#" class="active"><i class="fa fa-briefcase" aria-hidden="true"></i> Revisar Notas</a>';
+  $ingresar_nota=  '<a href="../create_invoice.php"  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Ingresar Desalojo</a>';
+ $revisar='<a href="#" class="active"><i class="fa fa-briefcase" aria-hidden="true"></i> Revisar Desalojo</a>';
  $modulo_aut='<a href="./Rest_Autorizado/ViewAut.php"><i class="fa fa-book" aria-hidden="true"></i> Modulo de Autorizaciones</a>'; 
  $reportes='<a href="../Reporting/Report_master.php"><i class="fa fa-line-chart" aria-hidden="true"></i> Reportes</a>';
  $about ='<a href="#about"><i class="fa fa-rss" aria-hidden="true"></i> About</a>';
