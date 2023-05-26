@@ -11,7 +11,7 @@ include('../include/config.inc');
 <html>
 <head>
 <meta charset="utf-8">
-<title>Notas Egreso ILP</title>
+<title>Remisión TMK</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="js/invoice.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
@@ -101,7 +101,7 @@ function ancla()
   //Parametros de reenvio
   $ingresar_nota=  '<a href="../create_invoice.php"  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Ingresar Desalojo</a>';
  $revisar='<a href="#" class="active"><i class="fa fa-briefcase" aria-hidden="true"></i> Revisar Desalojo</a>';
- $modulo_aut='<a href="./Rest_Autorizado/ViewAut.php"><i class="fa fa-book" aria-hidden="true"></i> Modulo de Autorizaciones</a>'; 
+ $modulo_aut='<a href="./Rest_Autorizado/ViewAut.php"><i class="fa fa-book" aria-hidden="true"></i> Módulo de Liquidación</a>'; 
  $reportes='<a href="../Reporting/Report_master.php"><i class="fa fa-line-chart" aria-hidden="true"></i> Reportes</a>';
  $about ='<a href="#about"><i class="fa fa-rss" aria-hidden="true"></i> About</a>';
  if (isset($_SESSION['Modulo']))
@@ -249,10 +249,10 @@ function myFunction() {
                     <tr>
                         
                     <th width="10%" >Código</th>
-                        <th width="18%">Fecha de Ingreso</th>
+                        <th width="15%">Fecha de Ingreso</th>
                         <th width="30%">Empleado</th>div
                         <th width="30%">Nombre cliente</th>                             
-                        <th width="30%">Ruta</th>
+                        <th width="30%">Monto desalojo</th>
                         <th width="35%">Estado</th>
                         <th width="25%">Ver</th>
                       
@@ -266,12 +266,12 @@ function myFunction() {
                                                                       if (isset($_SESSION['max'])){
                                                                           $min = $_SESSION['min'];
                                                                           $max =$_SESSION['max'];
-                                                                          $query="call listaNotasPadreConfecha('$min','$max','$id_padre')";
+                                                                          $query="call SP_TMK_LISTAR_REMISION_PADRE_CON_FECHA('$min','$max','$id_padre')";
                                                   $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
                                                   
                                                                       }
                                                                   }else {
-                                                                  $query=" call listaNotasPadreSinFecha('$id_padre')";
+                                                                  $query=" call SP_TMK_LISTAR_REMISION_PADRE_SIN_FECHA('$id_padre')";
                                                                   $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
                                                                         
                                                                       }
@@ -281,13 +281,13 @@ function myFunction() {
                                                 if (isset($_SESSION['max'])){
                                                     $min = $_SESSION['min'];
                                                     $max =$_SESSION['max'];
-                                                    $query="call listaNotasTodasConfecha('$min','$max')";
+                                                    $query="call SP_TMK_LISTAR_REMISION_TODAS_CON_FECHA('$min','$max')";
                             $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
                             
                                                 }
                                             }else {
                                               if ($_SESSION['Modulo']== 5){
-                                            $query="select*from lista_notas_ingresadas";
+                                            $query="select*from VIEW_TMK_LISTAR_DESALOJOS_INGRESADOS";
                                             $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
                                               }   
                                                 }
@@ -303,16 +303,16 @@ function myFunction() {
                                                 while ($row=mysqli_fetch_array($resultado))
                                                     {
                                                         echo '<tr>';
-                                                        $idenvi=$row['id_nota_egreso_interna'];
-                                                    echo '<td> '; echo $row['id_nota_egreso_interna'];echo '</td>';
+                                                        $idenvi=$row['id_interno_desalojo'];
+                                                    echo '<td> '; echo $row['id_interno_desalojo'];echo '</td>';
                                                     
-                                                    echo '<td> '; echo $row['fecha_ingreso'];echo '</td>';
+                                                    echo '<td> '; echo $row['fecha_sistema'];echo '</td>';
                                                     echo '<td> '; echo $row['nombre'];echo '</td>';
 
                                                     
                                                 
                                                     echo '<td> '; echo $row['nombre_cliente'];echo '</td>';
-                                                    echo '<td> '; echo $row['ruta'];echo '</td>';
+                                                    echo '<td> '; echo '$ '; echo $row['venta'];echo '</td>';
                                                     
                                                           
 
