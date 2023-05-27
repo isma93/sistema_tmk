@@ -23,7 +23,7 @@
 		}
 		$_SESSION['ingreso_des'] = true;
 		if ($idc != $_SESSION['id_producto']) {
-			// Si el código de producto no coincide, muestra una ventana emergente de error y redirige al usuario
+			// Si  no coincide, muestra una ventana emergente de error y redirige al usuario
 			echo '<script>
 				Swal.fire({
 					icon: "error",
@@ -38,7 +38,7 @@
 				});
 			</script>';
 		} else {
-			// Si el código de producto coincide, muestra una ventana emergente de éxito y redirige al usuario
+			// Si código de producto coincide hace una ventana emergente de éxito y redirige al usuario
 			echo '<script>
 				Swal.fire({
 					icon: "success",
@@ -55,7 +55,7 @@
 			</script>';
 		}
 	} else {
-		// Si no se pueden obtener resultados, muestra una ventana emergente de error y redirige al usuario
+		// Si no se pueden obtener resultados, ventana emergente de error y redirige al usuario
 		echo '<script>
 			Swal.fire({
 				icon: "error",
