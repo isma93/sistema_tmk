@@ -117,6 +117,27 @@ body {
             {
                window.location.href = "./Reporting/Report_master.php";
             }
+		iss=1;
+		function filtrocategoria()
+
+		{
+			var seleccion=document.getElementById('filtrocategorias').value;
+			var contprom= "filtrocat"+iss;
+			//Display de arreglos de sesion pendientes con
+		
+		//	alert(seleccion + ' ' + iss);
+			var Selectenvio= document.getElementById(contprom).innerText;
+			alert(Selectenvio + 'GRID');
+			/* 	for(var i=1;i<iss;i++)
+				{
+				if(Selectenvio.options[i].text==mysendbox)
+				{
+					// seleccionamos el valor que coincide
+					Selectenvio.selectedIndex=i;
+				}
+				}   */
+
+		}
 </script>
 
 <script>
@@ -196,18 +217,10 @@ body {
 								
 }	
 
-
- 			
-			
-				
+	
 						
             
 </script>
-
-
-
-
-
 
 
 
@@ -455,14 +468,6 @@ function myFunction() {
 
 
 
-
-
-
-
-
-
-
-
 <!--ESPACE-->
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
@@ -486,9 +491,6 @@ function myFunction() {
 
 			<!-- Aca ingresar la otra tabla-->
 
-
-
-					   
 
 				  
 								<div >
@@ -531,9 +533,47 @@ function myFunction() {
 
 														
 								</div>
+								<?php
+/*
+								<div class="form-group">
+													
+											<select tabindex="3" name="filtrocategorias" id="filtrocategorias"  class="form-control"  onchange="filtrocategoria()">
+												<option value="0">Seleccione Categoria..</option>
+														
+														<?php  
+														//$cid=$_SESSION['codigo_empleado'];
+														$query="SELECT * FROM CATEGORIAS_FILTRO;";
+														$resultado=mysqli_query( $conexion, $query ) or die ( "Error de base de datos");
+														$p1 = 1;
+														while ($row=mysqli_fetch_array($resultado))
+														{
+														?>
+														
+														<option <?php  ?>
+														
+														value="<?php echo $row['categoria_producto']; ?>" >  <?php  echo $row['categoria_producto'];  ?> </option>
+														<?php  $p1++;
+														}  
+														//mysqli_close($conexion);
+														mysqli_next_result($conexion); 
+														//comentario
+														
+														?>
+											</select>
+											//
+
+*/
+?>
+														
+								</div> 
+
+														<div class="form-group">
+
+						
 
 
-
+									
+						</div>
 
 								<div>	
 
@@ -570,6 +610,7 @@ function myFunction() {
 
 
 						<div class="form-group">
+
 							<span>Nombre del cliente:</span>
 									<input readonly value="<?php if (isset($_SESSION['nom'])){echo $_SESSION['nom']; }else {echo'cliente no asignado';}?>" type="text" class="form-control" name="ruta" id="nombrecliente" placeholder="Aqui veras el nombre del cliente
 									" autocomplete="off" >
@@ -586,24 +627,6 @@ function myFunction() {
 <!---------------------------------------------- -->
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -663,51 +686,76 @@ function myFunction() {
 		$localkey=false;
 
 	}
+	
 
 	?>
+						<select tabindex="3" name="filtromarca" id="filtromarca" class="form-control" onchange="filterProductsByBrand()">
+    <option value="0">Seleccione Marca..</option>
+    <?php
+	
+    //$cid=$_SESSION['codigo_empleado'];
+    $query = "SELECT * FROM MARCAS_FILTRO;";
+    $resultado = mysqli_query($conexion, $query) or die("Error de base de datos");
+    $p2 = 1;
+    while ($row = mysqli_fetch_array($resultado)) {
+        ?>
+        <option value="<?php echo $row['marca_producto']; ?>"><?php echo $row['marca_producto']; ?></option>
+        <?php $p2++;
+    }
+    mysqli_next_result($conexion);
+    ?>
+</select>
+<br>
+<script>
+function filterProductsByBrand() {
+    var brandSelect = document.getElementById("filtromarca");
+    var selectedBrand = brandSelect.value;
 
+    var productSelect = document.getElementById("te");
+    var productOptions = productSelect.options;
 
+    for (var i = 0; i < productOptions.length; i++) {
+        var option = productOptions[i];
+        var brand = option.getAttribute("data-brand");
 
-														<div class="form-group">
-																<button class="tn btn-info btn-lg btn-block" name="BuscarProducto" ONCLICK="location.href='BuscarProducto.php'">Seleccionar producto</button>
-																</div>
-																<div class="form-group">
-																<!--<input tabindex="4"  value="<?php // if (isset($_SESSION['nombre_producto'])){if(isset($localkey)){if ($localkey==true){$_SESSION['id_producto']='';}else {echo $_SESSION['id_producto'];}} else {echo $_SESSION['id_producto'];} }else {}?>" type="text" class="form-control" name="te" placeholder="Código Producto" autocomplete="off">
-																--></div>	
-																<div>	
+        if (brand === selectedBrand || selectedBrand === "0") {
+            option.style.display = "block";
+        } else {
+            option.style.display = "none";
+        }
+    }
+}
+	
+</script>
 
-																<select name="te" id="te"  class="form-control">
-																	<option value="0">Seleccione Producto</option>
-												
-																	<?php
-																		
-																		$variableprod = $_SESSION['id_cliente'];
-																		$query="call SP_TMK_LISTAR_CLIENTES_PRODCUTO ('$variableprod')";
-																		$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
-																		$i = 0;
-																		while ($row=mysqli_fetch_array($resultado))
-																			{
-																				?>
-																			
+<div class="form-group">
+    <button class="tn btn-info btn-lg btn-block" name="BuscarProducto" onclick="location.href='BuscarProducto.php'">Seleccionar producto</button>
+</div>
 
-																		<option 
-
-																				<?php
-																				$_SESSION['marca_producto'.$i]=$row['marca_producto'];
-																				$_SESSION['id_producto'.$i]=$row['id_producto'];
-																				$_SESSION['nombre_producto'.$i]=$row['nombre_producto'];
-																				
-																				
-																				 ?>
-
-																				value="<?php echo $row['id_producto']; ?>"    > <?php echo $row['marca_producto'];echo " - "; echo $row['id_producto'];echo " - ";  echo $row['nombre_producto']; ?> </option>
-																				<?php  $i++;
-																	} ?>
-																	</select><br>
-														        </div>
-														</div>
+<div>
+    <select name="te" id="te" class="form-control">
+        <option value="0">Seleccione Producto</option>
+        <?php
+        $variableprod = $_SESSION['id_cliente'];
+        $query = "call SP_TMK_LISTAR_CLIENTES_PRODCUTO ('$variableprod')";
+        $resultado = mysqli_query($conexion, $query) or die("No se pueden mostrar los canales");
+        $ik = 0;
+        while ($row = mysqli_fetch_array($resultado)) {
+            $_SESSION['marca_producto' . $ik] = $row['marca_producto'];
+            $_SESSION['categoria_producto' . $ik] = $row['categoria_producto'];
+            ?>
+            <option data-brand="<?php echo $row['marca_producto']; ?>" value="<?php echo $row['id_producto']; ?>">
+                <?php echo $row['marca_producto'] . " - " . $row['id_producto'] . " - " . $row['nombre_producto']; ?>
+            </option>
+            <?php
+            $ik++;
+            echo '<script>iss++;</script>';
+        }
+        ?>
+    </select><br>
+</div>
 													     	
-
+</div>
 
 
 							</form>	
@@ -720,7 +768,7 @@ function myFunction() {
 
 														<div class="form-group">
 
-														<input <?php if (isset($_SESSION['ingreso_des'])){ if($_SESSION['ingreso_des']==true){}else{echo "readonly";} }else {echo "readonly";}?> tabindex="5" onkeypress="return valideKey(event);"  class="form-control" id= "cantidad" type="number" name="cantidad" placeholder="Cantidad" autocomplete="off" min="0" step="0.000001" max="99999" >
+														<input <?php if (isset($_SESSION['ingreso_des'])){ if($_SESSION['ingreso_des']==true){}else{echo "readonly";} }else {echo "readonly";}?> tabindex="5" onkeypress="return valideKey(event);"  class="form-control" id= "cantidad" type="number" name="cantidad" placeholder="Cantidad" autocomplete="off" min="0" step="0.01" max="99999" >
 															
 														</div>
 														
@@ -745,6 +793,13 @@ function myFunction() {
 <div class="panel-body">
 								</div>
 <div class="panel-body">
+
+<div class="form-group">
+
+	<span>Categoria:</span>
+<input readonly value="<?php if (isset($_SESSION['categoria_producto'])){if(isset($localkey)){if ($localkey==true){$_SESSION['categoria_producto']='';}else {echo $_SESSION['categoria_producto'];}} else {echo $_SESSION['categoria_producto'];} }else {}?>" type="text" class="form-control" name="nombreProducto" id="nombreProducto" placeholder="Categoria Producto" autocomplete="off">
+														</div>
+
 
 <div class="form-group">
 	<span>Nombre producto:</span>
@@ -777,6 +832,11 @@ function myFunction() {
 			</div>
 														</div>
 														<div class="outer">
+
+				<br>
+				<br>	
+				<br>
+				<br>									
 				<table class="table table-bordered" id="invoiceItem">	
 					<tr>
 						<thead >
