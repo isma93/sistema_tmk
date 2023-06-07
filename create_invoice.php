@@ -693,13 +693,13 @@ function myFunction() {
     <option value="0">Seleccione Marca..</option>
     <?php
 	
-    //$cid=$_SESSION['codigo_empleado'];
-    $query = "SELECT * FROM MARCAS_FILTRO;";
+	$variableprod23 = $_SESSION['id_cliente'];
+    $query = "call SP_TMK_LISTAR_MARCA_PRODUCTO_CLIENTE ('$variableprod23');";
     $resultado = mysqli_query($conexion, $query) or die("Error de base de datos");
     $p2 = 1;
     while ($row = mysqli_fetch_array($resultado)) {
         ?>
-        <option value="<?php echo $row['marca_producto']; ?>"><?php echo $row['marca_producto']; ?></option>
+        <option value="<?php echo $row['marca_producto']; ?>"><?php echo $row['categoria_producto']. " - " .$row['marca_producto']; ?></option>
         <?php $p2++;
     }
     mysqli_next_result($conexion);
@@ -737,7 +737,7 @@ function filterProductsByBrand() {
         <option value="0">Seleccione Producto</option>
         <?php
         $variableprod = $_SESSION['id_cliente'];
-        $query = "call SP_TMK_LISTAR_CLIENTES_PRODCUTO ('$variableprod')";
+        $query = "call SP_TMK_LISTAR_CLIENTES_PRODUCTO ('$variableprod')";
         $resultado = mysqli_query($conexion, $query) or die("No se pueden mostrar los canales");
         $ik = 0;
         while ($row = mysqli_fetch_array($resultado)) {
@@ -842,7 +842,7 @@ function filterProductsByBrand() {
 						<thead >
 						<th width="10%">Código</th>
 						<th width="55%">Nombre Producto</th>
-						<th width="15%">Cantidad</th>
+						<th width="10%">Cantidad</th>
 						<th width="10%">Precio</th>								
 						<th width="10%">Sub Total</th>
 						<th width="20%">Acción</th>
