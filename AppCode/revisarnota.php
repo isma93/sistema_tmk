@@ -320,7 +320,7 @@ function myFunction() {
 
                                                    
                                                     if ($row['id_estado']=1){
-                                                        echo '<td> '; echo "Revisar";echo '</td>';
+                                                        echo '<td> '; echo "Ingresada";echo '</td>';
                                                                                 }
                                                     
                                                     ?> <td>  <a class="btn btn-success" href='vernota.php?id=<?php echo $idenvi;?>&com=<?php echo $i ?>' ><i class="fa fa-eye"></i> Ver</a> <?php echo '</td>';

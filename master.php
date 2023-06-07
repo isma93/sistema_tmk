@@ -185,8 +185,8 @@ function myFunction() {
       <div class="row">
         <div class="col-md-12">
           <div class="banner-text">
-            <h1>Sistema Trade Marketing</h1>
-            <p>Este sistema pertenece a ILP Mercosal S.A, Hola <?php if (isset($_SESSION['Modulo'])){echo $_SESSION['first_name']; }?></p>
+            <h1>Sistema TradeAPI</h1>
+            <p>Hola <?php if (isset($_SESSION['Modulo'])){echo $_SESSION['first_name']; }?></p>
             <a href="#contact" class="banner-button">Feedback</a> </div>
         </div>
       </div>
