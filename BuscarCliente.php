@@ -2,8 +2,22 @@
 	
 <head>
 <?php
-
-
+session_start(); 
+if (isset($_SESSION['contado'])){		
+	echo 'TEST';	
+	$com=1;		
+	while ($com <= $_SESSION['contado']){
+		$_SESSION['codigo'.$com]=0;
+		$_SESSION['nombreProducto'.$com]='Eliminado';
+		$_SESSION['cantidad'.$com]=0;					
+		$_SESSION['Entidad'.$com]=0;
+		$_SESSION['P_PRECIO'.$com]=0;
+		$_SESSION['GRANTOTALVAR']=$_SESSION['GRANTOTALVAR']-$_SESSION['SUBTOTAL'.$com];
+		$_SESSION['SUBTOTAL'.$com]=0;
+		$com++;
+	}
+	
+}
 ?>
 	<title>MOSTRAR DATOS</title>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -11,7 +25,7 @@
 		<body>
 		
 		<?php
-			session_start(); 
+			
 			include('include/config.inc');
 			$conexion = mysqli_connect($servidor,$usuario,$contrasena,$basededatos);
 			mysqli_set_charset($conexion,"utf8");
@@ -22,6 +36,12 @@
 				$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los registros");
 
 				if ($resultado){
+
+					//06=06-23 Restablecer variables de tabla create invoice
+					
+									
+
+
 					while ($row=mysqli_fetch_array($resultado))
 						{
 							$_SESSION['id_cliente']=$row['id_cliente'];
