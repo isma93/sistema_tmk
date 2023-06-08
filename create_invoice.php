@@ -913,14 +913,21 @@ function filterProductsByBrand() {
 				<input id="desactivos" readonly type="hidden" value= "<?php if (isset($_SESSION['delete_this'])){echo $_SESSION['delete_this']; }else {} ?>" class="form-control" name="hh" placeholder="Entidad" autocomplete="off">
 														
 				<div class="form-group">
-					<textarea maxlength="120" tabindex="7" class="form-control txt" rows="5" name="notas" id="notas" placeholder="Notas"></textarea>
-				</div>
-				<br>
-				<div class="form-group">
-					
-					<input data-loading-text="Guardando Remisión..." type="submit" name="invoice_btn" value="Guardar Remisión" class="tn btn-success btn-lg btn-block">						
-								
-				</div>
+  <input data-loading-text="Guardando Remisión..." type="submit" name="invoice_btn" value="Guardar Remisión" class="tn btn-success btn-lg btn-block" onclick="mostrarMensaje()">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function mostrarMensaje() {
+    Swal.fire({
+      title: 'Éxito',
+      text: 'La nota de remisión fue guardada.',
+      icon: 'success',
+      confirmButtonText: 'Aceptar'
+    });
+  }
+</script>
+  
 				
 			</div>
 
