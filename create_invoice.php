@@ -187,6 +187,7 @@ body {
 
 
 
+<script src="https://github.com/sweetalert2/sweetalert2"></script>
 
 
 <script>
@@ -201,7 +202,10 @@ body {
 				activos=activos - 1;
 		if (desactivos==activos)
 		{
-			alert("Tabla vacia");
+			Swal.fire({
+      icon: 'error',
+      title: 'NOTA DE REMISION VACIA'
+    });
 			return false;
 		}
 		else {
@@ -917,7 +921,7 @@ function filterProductsByBrand() {
 				</div>
 				<br>
 				<div class="form-group">
-  <input data-loading-text="Guardando Remisión..." type="submit" name="invoice_btn" value="Guardar Remisión" class="tn btn-success btn-lg btn-block" onclick="mostrarMensaje()">
+				<input data-loading-text="Guardando Remisión..." type="submit" name="invoice_btn" value="Guardar Remisión" class="tn btn-success btn-lg btn-block" onclick="mostrarMensaje()">
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -925,12 +929,15 @@ function filterProductsByBrand() {
   function mostrarMensaje() {
     Swal.fire({
       title: 'Éxito',
-      text: 'La nota de remisión fue guardada.',
+      text: 'LA NOTA DE REMISION FUE GUARDAD CON EXITO.',
       icon: 'success',
       confirmButtonText: 'Aceptar'
     });
   }
 </script>
+					
+								
+				</div>
 				
 			</div>
 
