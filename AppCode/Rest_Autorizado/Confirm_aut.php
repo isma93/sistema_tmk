@@ -23,13 +23,13 @@ $autorizado=$_SESSION['id_autorizado'];
 $DateAndTime = date('Y-m-d H:i:s ', time()); 
       
 
-                                $query="insert into bitacora_estados_nota_egreso (id_empleado, id_estado, id_nota_egreso_interna, fecha_estado )values ('$id_employe','$autorizado','$ID','$DateAndTime');";
+                                $query="insert into tmk_bitacora_estado_desalojo (id_empleado, id_estado, id_interno_desalojo, fecha_estado )values ('$id_employe','$autorizado','$ID','$DateAndTime');";
 							    $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 							     if ($resultado)
 								 {
                                    
 
-                                    $query="UPDATE nota_egreso SET id_ultimo_estado = '$autorizado' where id_nota_egreso_interna = '$ID'";
+                                    $query="UPDATE tmk_desalojo SET id_ultimo_estado = '$autorizado' where id_interno_desalojo = '$ID'";
                                     $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
                                      if ($resultado)
                                      {

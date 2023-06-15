@@ -310,7 +310,7 @@ while ($row=mysqli_fetch_array($resultado))
 				var notas = document.getElementById("notas").value
 				Swal.fire({
         title: '¿Estás seguro?', 
-		text: '¿Confirma de autorizada esta nota de egreso?',            
+		text: '¿Confirma de autorizada este desalojo?',            
         icon: 'warning',
         showCancelButton: true,
         cancelButtonColor: '#d33',

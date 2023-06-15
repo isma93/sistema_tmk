@@ -14,7 +14,7 @@ include('../../include/config.inc');
 <html>
 <head>
 <meta charset="utf-8">
-<title>Notas Egreso ILP</title>
+<title>Remisión TMK</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="js/invoice.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
@@ -249,12 +249,11 @@ function myFunction() {
 			<div class="outer">
 			<table id="tabla" data-sort="table" class="table table-bordered" id="invoiceItem">   
                     <tr>
-                        
                     <th width="10%" >Código</th>
-                        <th width="18%">Fecha de Ingreso</th>
+                        <th width="15%">Fecha de Ingreso</th>
                         <th width="30%">Empleado</th>div
                         <th width="30%">Nombre cliente</th>                             
-                        <th width="30%">Ruta</th>
+                        <th width="30%">Monto desalojo</th>
                         <th width="35%">Estado</th>
                         <th width="25%">Ver</th>
                       
@@ -264,11 +263,11 @@ function myFunction() {
                                     <tr>
                                         <?php
                                         
-                                                                  if (isset($_SESSION['min'])){
+                                                                 if (isset($_SESSION['min'])){
                                                                       if (isset($_SESSION['max'])){
                                                                           $min = $_SESSION['min'];
                                                                           $max =$_SESSION['max'];
-                                                                          $query="call listaNotasTodasConFecha_revision('$min','$max','$id_revisado')";
+                                                                          $query="call SP_TMK_LISTAR_REMISION_PADRE_CON_FECHA('$min','$max','$id_padre')";
                                                   $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
                                                   
                                                                       }
