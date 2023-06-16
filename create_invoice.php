@@ -174,29 +174,17 @@ body {
 		}
 
 								
-}	
-
-
- 			
-			
-				
-						
-            
+}							        
 </script>
 
 
-
-
-<script src="https://github.com/sweetalert2/sweetalert2"></script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
          
 		 function mostj()
             {
 				event.preventDefault();
 
-			
 				var activos = document.getElementById("activos").value
 				var desactivos = document.getElementById("desactivos").value
 				activos=activos - 1;
@@ -204,7 +192,7 @@ body {
 		{
 			Swal.fire({
       icon: 'error',
-      title: 'NOTA DE REMISION VACIA'
+      title: 'NOTA DE REMISION VACIA'	
     });
 			return false;
 		}
@@ -217,12 +205,11 @@ body {
 					}		
 					return false;
 			}
-
 								
 }	
 
 	
-						
+				
             
 </script>
 
