@@ -62,7 +62,7 @@
 
   <?php
   session_start();
-  //Parametros de reenvio
+  //Parametros de reenvio, el campo id_rol representa los modulos, 1=vendedor 2=asistente 3=gerencia ...
   $ingresar_nota=  '<a href="create_invoice.php"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Ingresar Desalojo</a>';
  $revisar='<a href="./AppCode/revisarnota.php"><i class="fa fa-briefcase" aria-hidden="true"></i> Revisar Desalojo</a>';
  $modulo_aut='<a href="./AppCode/Rest_Autorizado/ViewAut.php"><i class="fa fa-book" aria-hidden="true"></i> Módulo de Liquidación</a>'; 
@@ -81,6 +81,7 @@
 	   {
 		echo $ingresar_nota;
     echo $inventario;
+    echo $modulo_aut;
 		echo $about;
     
 	   } else if ($_SESSION['Modulo']==2)
