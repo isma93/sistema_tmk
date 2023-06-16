@@ -1,4 +1,5 @@
 
+
 <html><head>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -270,7 +271,7 @@ while ($row=mysqli_fetch_array($resultado))
 				
 				Swal.fire({
         title: '¿Estás seguro?', 
-		text: 'Una nota de egreso anulada no se podra recuperar',            
+		text: 'Una remisión anulada no se podra recuperar',            
         icon: 'warning',
         showCancelButton: true,
         cancelButtonColor: '#d33',
@@ -288,24 +289,17 @@ while ($row=mysqli_fetch_array($resultado))
             
 </script>
 
+
 <script>
          
 		 function retrofil(event)
             {
 				event.preventDefault();
-				var nt = document.getElementById("nt").value
-				var x1 = document.getElementById("usos").value
-				var x2 = document.getElementById("entity_s").value
-				var x3 = document.getElementById("cuenta").value
-				if (nt!=0){
-
-					if (x1!="PREDETERMINADO"){
-						if (x2!="PREDETERMINADO"){
-							if (x3!="PREDETERMINADO"){
-				var notas = document.getElementById("notas").value
+				
+				
 				Swal.fire({
-        title: '¿Estás seguro?', 
-		text: 'Una vez enviada la nota de egreso pasara a estar pendiente de autorizacion. ',            
+        title: 'Confirmar revisión', 
+		text: 'estas autorizando revisión del desalojo',            
         icon: 'warning',
         showCancelButton: true,
         cancelButtonColor: '#d33',
@@ -313,31 +307,14 @@ while ($row=mysqli_fetch_array($resultado))
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-        document.insert.submit();
+			document.getElementById('insert').submit();
+     
 
         }
-    })		
-	
-	}
-
-	else {
-		alert("Debes agregar cuenta");
-	}	
-}else {
-		alert("Debes agregar entidad.");
-	}	
-					}
-	else {
-		alert("Debes agregar usos");
-	}	
-
-
-	}	//cierre cero
-	else {
-		alert("Debes seleccionar a quien se le asignara la nota de egreso.");
+    })						
 	}	
 						
-            }
+            
 </script>
 		
 <script type="text/javascript">
@@ -643,7 +620,7 @@ function myFunction() {
 														</div>
 														<div class="panel panel-primary">
 
-														<div class="panel-heading">Descripción de datos</div>	
+														<div class="panel-heading">Descripcion de datos</div>	
 														
 														<div class="panel-body">
 
@@ -684,7 +661,7 @@ function myFunction() {
 			</div>
 
 			</form>	
-			<form onsubmit="retrofil(event)" action="Confirm.php" method="post" name="insert" class="invoice-form" role="form" novalidate> 
+			<form onsubmit="retrofil(event)" action="Confirm.php" method="post" name="insert" id = "insert" class="invoice-form" role="form" novalidate> 
 		
 				<table class="table table-bordered table-hover" id="invoiceItem">	
 					<tr>
@@ -767,7 +744,7 @@ $i=1;
 													
 													//echo '<td contenteditable="false"> <input maxlength="44" tabindex="'.$Star.'" name= "desc_'.$Star.'" class ="form-control"  value= "'.$venta.'"></td>';
 													
-													 echo  '<input   name="id_detalle_nota_egreso_'.$Star.'" value="'.$id_interno_desalojo.'" type="hidden">';
+													 echo  '<input   name="id_interno_desalojo_'.$Star.'" value="'.$id_interno_desalojo.'" type="hidden">';
 													$Star++;
 													
 															

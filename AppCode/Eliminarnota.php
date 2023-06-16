@@ -10,26 +10,20 @@ header("Pragma: no-cache");
 include('../include/config.inc');
 $conexion = mysqli_connect($servidor,$usuario,$contrasena,$basededatos);
 
-
-
-
 $ID = $_SESSION['id_intr'];
-
-
-
-    $id_employe=$_SESSION['codigo_empleado'];
+$id_employe=$_SESSION['codigo_empleado'];
    
     date_default_timezone_set('America/El_Salvador');    
 $DateAndTime = date('Y-m-d H:i:s ', time()); 
       
 
-                                $query="insert into bitacora_estados_nota_egreso (id_empleado, id_estado, id_nota_egreso_interna, fecha_estado )values ('$id_employe','8','$ID','$DateAndTime');";
+                                $query="insert into tmk_bitacora_estado_desalojo (id_empleado, id_estado, id_interno_desalojo, fecha_estado )values ('$id_employe','8','$ID','$DateAndTime');";
 							    $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 							     if ($resultado)
 								 {
                                    
 
-                                    $query="UPDATE nota_egreso SET id_ultimo_estado = '8' where id_nota_egreso_interna = '$ID'";
+                                    $query="UPDATE tmk_desalojo SET id_ultimo_estado = '8' where id_interno_desalojo = '$ID'";
                                     $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
                                      if ($resultado)
                                      {
@@ -38,7 +32,7 @@ $Asign= ' ';//no tocar
                                                   
                                                     echo 	" '<script> Swal.fire({
                                                         icon: 'success',
-                                                        title: 'HAS ANULADO LA NOTA DE EGRESO DE CODIGO : $ID CORRECTAMENTE!',
+                                                        title: 'HAS ANULADO EL DESALOJO : $ID CORRECTAMENTE!',
                                                         allowOutsideClick: false,
                                                         showConfirmButton: true,
                                                         confirmButtonText: 'Continuar'

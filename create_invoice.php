@@ -916,7 +916,7 @@ function filterProductsByBrand() {
   function mostrarMensaje() {
     Swal.fire({
       title: 'Éxito',
-      text: 'LA NOTA DE REMISION FUE GUARDAD CON EXITO.',
+      text: 'LA NOTA DE REMISIÓN FUE GUARDAD CON EXITO.',
       icon: 'success',
       confirmButtonText: 'Aceptar'
     });
