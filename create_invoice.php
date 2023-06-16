@@ -389,6 +389,7 @@ return false;
  $modulo_aut='<a href="./AppCode/Rest_Autorizado/ViewAut.php"><i class="fa fa-book" aria-hidden="true"></i> Módulo de Liquidación</a>'; 
  $reportes='<a href="./Reporting/Report_master.php"><i class="fa fa-line-chart" aria-hidden="true"></i> Reportes</a>';
  $about ='<a href="#about"><i class="fa fa-rss" aria-hidden="true"></i> About</a>';
+ $inventario ='<a href="#about"><i class="fa fa-rss" aria-hidden="true"></i> Inventrio</a>';
  if (isset($_SESSION['Modulo']))
 			
  {
@@ -398,6 +399,9 @@ return false;
 	   if ($_SESSION['Modulo']==1)
 	   {
 		echo $ingresar_nota;
+		echo $modulo_aut;
+		echo $inventario;
+		
 		echo $about;
 	   } else if ($_SESSION['Modulo']==2)
 	   {

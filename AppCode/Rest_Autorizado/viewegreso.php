@@ -2,7 +2,7 @@
 <html><head>
 <head>
 <meta charset="utf-8">
-<title>Notas Egreso ILP</title>
+<title>Remisión TMK</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="js/invoice.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
@@ -56,7 +56,7 @@ $_SESSION['backendreturn'] = false;
 
 }
 
-$query="SELECT * FROM bitacora_estados_nota_egreso where id_nota_egreso_interna ='$ID' and id_estado='2'";
+$query="SELECT * FROM tmk_bitacora_estado_desalojo where id_interno_desalojo ='$ID' and id_estado='2'";
 $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 $p = 0;
 if ($resultado){
@@ -74,10 +74,11 @@ while ($row=mysqli_fetch_array($resultado))
 		$_SESSION['re_codigo']=$row['id_empleado'];
 		$re_codigo=$_SESSION['re_codigo'];
 
+
 	}
 }
 
-$query="SELECT * FROM nota_egreso where id_nota_egreso_interna ='$ID' ";
+$query="SELECT * FROM tmk_desalojo where id_interno_desalojo ='$ID' ";
 $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 $p = 0;
 while ($row=mysqli_fetch_array($resultado))
@@ -91,20 +92,20 @@ while ($row=mysqli_fetch_array($resultado))
 		$_SESSION['nombre_cliente'.$p]=$row['nombre_cliente'];
 		$_SESSION['direccion_cliente'.$p]=$row['direccion_cliente'];
 		*/
-		$_SESSION['e_id_nota_egreso']=$row['id_nota_egreso'];
-		$_SESSION['e_fecha_ingreso']=$row['fecha_ingreso'];
-		$_SESSION['e_id_nota_egreso_interna']=$row['id_nota_egreso_interna'];
+		//$_SESSION['e_id_nota_egreso']=$row['id_nota_egreso'];
+		$_SESSION['e_fecha_desalojo']=$row['fecha_desalojo'];
+		$_SESSION['e_id_interno_desalojo']=$row['id_interno_desalojo'];
 		$_SESSION['e_id_cliente']=$row['id_cliente'];
 		$cl=$row['id_cliente'];
-		$_SESSION['e_direccion_entrega']=$row['direccion_entrega'];
-		$_SESSION['e_id_ruta']=$row['id_ruta'];
-		$_SESSION['e_codigo_empleado']=$row['codigo_empleado'];
-		$_SESSION['e_id_cuenta']=$row['id_cuenta'];
-		$cuenta1=$row['id_cuenta'];
-		$_SESSION['e_id_uso']=$row['id_uso'];
-		$uso=$row['id_uso'];
-		$_SESSION['e_id_cargo_entidad']=$row['id_cargo_entidad'];
-		$entidad_id=$row['id_cargo_entidad'];
+		//$_SESSION['e_direccion_entrega']=$row['direccion_entrega'];
+		//$_SESSION['e_id_ruta']=$row['id_ruta'];
+		$_SESSION['e_id_empleado']=$row['id_empleado'];
+		//$_SESSION['e_id_cuenta']=$row['id_cuenta'];
+		//$cuenta1=$row['id_cuenta'];
+		//$_SESSION['e_id_uso']=$row['id_uso'];
+		//$uso=$row['id_uso'];
+		//$_SESSION['e_id_cargo_entidad']=$row['id_cargo_entidad'];
+		//$entidad_id=$row['id_cargo_entidad'];
 		$_SESSION['e_notas']=$row['notas'];
 		
 		
@@ -122,9 +123,10 @@ while ($row=mysqli_fetch_array($resultado))
 
 }
 //DETALLE EGRESO
-$query="SELECT * FROM detalle_nota_egreso where id_nota_interna ='$ID' ";
+$query="SELECT * FROM tmk_detalle_desalojo where id_interno_desalojo ='$ID' ";
 $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 $k = 0;
+$venta_total = 0;
 while ($row=mysqli_fetch_array($resultado))
 	{
 		?>
@@ -136,14 +138,15 @@ while ($row=mysqli_fetch_array($resultado))
 		$_SESSION['nombre_cliente'.$p]=$row['nombre_cliente'];
 		$_SESSION['direccion_cliente'.$p]=$row['direccion_cliente'];
 		*/
-		$_SESSION['d_id_detalle_nota_egreso'.$k]=$row['id_detalle_nota_egreso'];
-		$_SESSION['d_id_nota_interna'.$p]=$row['id_nota_interna'];
-		$_SESSION['d_id_entidad'.$p]=$row['id_entidad'];
+		$_SESSION['d_id_detalle_desalojo'.$k]=$row['id_detalle_desalojo'];
+		$_SESSION['d_id_interno_desalojo'.$p]=$row['id_interno_desalojo'];
+		$_SESSION['d_venta'.$p]=$row['venta'];
 		$_SESSION['d_id_producto'.$p]=$row['id_producto'];
-		$_SESSION['d_id_tipo_medida'.$p]=$row['id_tipo_medida'];
-		$_SESSION['d_id_nota_interna'.$p]=$row['id_nota_interna'];
-		$_SESSION['d_cantidad'.$p]=$row['cantidad'];
-		$_SESSION['d_descripcion_promocion'.$p]=$row['descripcion_promocion'];
+		$_SESSION['d_id_unidad_medida'.$p]=$row['id_unidad_medida'];
+		$_SESSION['d_precio_unitario'.$p]=$row['precio_unitario'];
+		$_SESSION['d_cajas_vendidas'.$p]=$row['cajas_vendidas'];
+		$venta1 =$row['venta'];
+		//$_SESSION['d_descripcion_promocion'.$p]=$row['descripcion_promocion'];
 		
 		
 	
@@ -157,8 +160,8 @@ while ($row=mysqli_fetch_array($resultado))
 		
 		<?php  $p++;
 
-		
-}
+		$venta_total = $venta1 + $venta_total;
+	}
 
 $query="SELECT * FROM cliente where id_cliente ='$cl' ";
 $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
@@ -190,62 +193,6 @@ while ($row=mysqli_fetch_array($resultado))
 }
 
 
-///////////////////////////////////////////////////////////////////////
-$query="SELECT * FROM  uso_nota_egreso,cargo_entidad,cuentas_contables where id_cargo_entidad ='$entidad_id'and id_cuenta ='$cuenta1' and id_uso='$uso'";
-$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
-$k = 0;
-while ($row=mysqli_fetch_array($resultado))
-	{
-		?>
-
-
-		<?php 
-		
-		$_SESSION['usosno']=$row['uso_nota_egreso'];
-		$_SESSION['id_cargo_entidad_']=$row['cargo_entidad'];
-		$_SESSION['mbcuenta']=$row['nombre_cuenta'];
-		
-		
-	
-		
-		
-		
-		
-		
-		?>
-
-		
-		<?php  $p++;
-
-		
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-												$Rut=$_SESSION['e_id_ruta'];
-												$query="Select*from ruta where id_ruta='$Rut'";
-																
-																$resultado1=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
-																$z=1;
-																while ($row=mysqli_fetch_array($resultado1))
-																{
-																	$ruta=$row['ruta'];
-																	$z++;
-																}
 
 ?>
 <head>
@@ -629,7 +576,7 @@ function myFunction() {
 								</div>
 
 								<div class="form-group">
-								<span>Codigo de nota egreso:</span>
+								<span>Codigo del desalojo:</span>
 									<input readonly value="<?php if (isset(	$_SESSION['id_intr'])){echo 	$_SESSION['id_intr']; }else {}?>" type="text" class="form-control" name="ruta" id="nombrecliente" placeholder="Ruta" autocomplete="off" >
 								</div>
 								<div class="form-group">
@@ -638,75 +585,19 @@ function myFunction() {
 								</div>
 								
 								<div class="form-group"  autocomplete="off">
-								<span>Direccion del cliente:</span>
-										<input readonly  value="<?php if (isset($_SESSION['e_direccion_entrega'])){echo $_SESSION['e_direccion_entrega']; }else {}?>" class="form-control" name="Direccion" id="direccioncliente" placeholder="Direccion" required autocomplete="off">
+								<span>Empleado:</span>
+										<input readonly  value="<?php if (isset($_SESSION['first_name'])){echo $_SESSION['first_name']; }else {}?>" class="form-control" name="Direccion" id="direccioncliente" placeholder="Direccion" required autocomplete="off">
 
 										</div>
 
 
-
-								<div class="form-group">
-								<span>Ruta:		</span>
-
-								<input readonly  value="<?php if (isset($ruta)){echo $ruta; }else {}?>"  type="text" class="form-control" name="rutacliente" id="rutacliente" placeholder="Ruta" autocomplete="off" required>
-
-									
 								</div>
-
-
-								<div class="form-group"  autocomplete="off">
-
+								<div class="form-group">
 							
-
-								</div>
-								<div class="form-group">
-								<span> Canal: </span>
-														<input 
-														<?php
-															
-															$idc=$_SESSION['id_intr'];
-															$query="select*From nota_egreso where id_nota_egreso_interna= '$idc'";
-															$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los registros");
-															if ($resultado)
-															{
-																
-																while ($row=mysqli_fetch_array($resultado))
-																{
-																	
-																	 $var2=$row['id_canal'] ;
-
-																	
-																	
-																}
-																 if ($var2>0){
-
-																$query="select*From canal where id_canal= '$var2'";
-																$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los registros");
-															
-																while ($row=mysqli_fetch_array($resultado))
-																{
-																	
-																	$res= $row['nombre_canal'];
-
-																	
-																	
-																}
-															
-																	}		
-
-															}
 
 
 													
 
-
-										?>
-										
-														
-														
-														
-														readonly value="<?php echo $res; ?>" type="text" class="form-control" name="mostrandocanal" placeholder="Canal" autocomplete="off">
-															
 														</div>
 													
 									
@@ -825,10 +716,7 @@ function myFunction() {
 														<div class="panel-body">
 
 														<div class="form-group">
-														<span> Cuenta: </span>
-														
-														<input readonly value="<?php echo $_SESSION['mbcuenta']; ?>"class="form-control" name="descripPromocion" id="descripPromocion" placeholder="Descripción de Promocion" autocomplete="off">
-															
+													
 														</div>
 
 														<div class="form-group"  autocomplete="off">
@@ -839,35 +727,14 @@ function myFunction() {
 
 
 														<div class="form-group">
-														<span> Cargo de entidad: </span>
-														<input readonly value="<?php echo $_SESSION['id_cargo_entidad_']; ?>"class="form-control" name="descripPromocion" id="descripPromocion" placeholder="Descripción de Promocion" autocomplete="off">
-														<input type="hidden"  readonly value="<?php echo $_SESSION['id_intr']; ?>"class="form-control" name="codigointerno_" id="codigointerno_" placeholder="Descripción de Promocion" autocomplete="off">
 															
 														</div>
 
 														<div class="form-group">
-														<span>Usos:  </span>
-
-
-
-														<input readonly value="<?php echo $_SESSION['usosno']; ?>"class="form-control" name="descripPromocion" id="descripPromocion" placeholder="Descripción de Promocion" autocomplete="off">
 															
 														</div>
 														<div class="form-group">
-														<span> Solicitado por: </span>
-														<?php
-														$nameemploye=$_SESSION['e_codigo_empleado'];
-														$query="select*From usuarios where codigo_empleado= '$nameemploye'";
-															$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los registros");
-															if ($resultado)
-															{
-																while ($row=mysqli_fetch_array($resultado))
-																{
-																?>
-																<input readonly value="<?php echo $row['first_name'].' '.$row['last_name']; ?>"class="form-control" name="descripPromocion" id="descripPromocion" placeholder="Descripción de Promocion" autocomplete="off">
-																
-															<?php }} ?>
-															
+													
 														</div>
 
 
@@ -913,122 +780,83 @@ function myFunction() {
 			<form onsubmit="retrofil(event)"  action="Confirm_aut.php" method="post" name="insert" class="invoice-form" role="form" novalidate> 
 		
 				<table class="table table-bordered table-hover" id="invoiceItem">	
-					<tr>
-						
-						<th width="10%">Código</th>
-						<th width="20%">Nombre Producto</th>
-						<th width="5%">Cantidad</th>div
-						<th width="30%">Entidad</th>								
-						<th width="30%">Descripción promoción</th>
-					
+				<th width="10%">Código</th>
+						<th width="55%">Nombre Producto</th>
+						<th width="15%">Cantidad</th>
+						<th width="10%">Precio</th>								
+						<th width="10%">Sub Total</th>
 					   
 					</tr>	
 					<tr>
 				 						<?php
 										 
-												$query="select*from detalle_nota_egreso where id_nota_interna='$ID'";
-												$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
-												$Star = 1;
-												while ($row=mysqli_fetch_array($resultado))
-													{
-														echo '<tr>';
-														$id_detalle_nota_egreso = $row['id_detalle_nota_egreso'];
-														$id_proc=$row['id_producto'];
-														$cant=$row['cantidad'];
-														$desc=$row['descripcion_promocion'];
-														$entity=$row['id_entidad'];
-													echo '<td> <input name= "id_'.$Star.'" class ="form-control" readonly value="'.$row['id_producto'].'"></td>';
+										 $query="select*from tmk_detalle_desalojo where id_interno_desalojo='$ID'";
+										 $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
+										 $Star = 1;
+										 while ($row=mysqli_fetch_array($resultado))
+											 {
+												 echo '<tr>';
+												 $id_interno_desalojo = $row['id_interno_desalojo'];
+												 $id_proc=$row['id_producto'];
+												 $cant=$row['cajas_vendidas'];
+												 $venta=$row['venta'];
+												 $precio= $row['precio_unitario'];
+												 //$desc=$row['descripcion_promocion'];
+											 echo '<td> <input name= "id_'.$Star.'" class ="form-control" readonly value="'.$row['id_producto'].'"></td>';
 
 
 
-													echo '<td >'; 
+											 echo '<td >'; 
+											 
 													
 													
 													
-													$query="Select*from producto where codigo_producto='$id_proc';";
-																		$resultado3=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
-																		$w = 1;
-																		while ($row=mysqli_fetch_array($resultado3))
-																			{
-																				?>
+											 $query="Select*from producto where codigo_producto='$id_proc';";
+											 $resultado3=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
+											 $w = 1;
+											 while ($row=mysqli_fetch_array($resultado3))
+												 {
+													 ?>
 
+											 
+													 <?php 
+													 
+													 echo '<input name= "nametable_'.$Star.'" class ="form-control" readonly value="'.$row['nombre_producto'].'">';
+													 ?>
+
+													 
+													 <?php  $w++;
+										 } 
+									 
+						 
+						 
+						 
+							 echo ' </td>';
+
+
+							 echo '<td> <input name= "cant_'.$Star.'" class ="form-control" readonly value= "'.$cant.'"></td>';
+
+							 echo '<td> <input name= "pre_'.$Star.'" class ="form-control" readonly value= "'.$precio.'"></td>';
+; 
+		 
+
+
+$j = 0;
+$i=1;
+										
+													
+													
+													echo '<td> <input name= "pre_'.$Star.'" class ="form-control" readonly value= "'.$venta.'"></td>';
 																		
-																				<?php 
-																				
-																				echo '<input name= "nametable_'.$Star.'" class ="form-control" readonly value="'.$row['nombre_producto'].'">';
-																				?>
-
-																				
-																				<?php  $w++;
-																	} 
-																
-													
-													
-													
-														echo ' </td>';
-
-
-
-
-
-
-													echo '<td> <input name= "cant_'.$Star.'" class ="form-control" readonly value= "'.$cant.'"></td>';
-
-													echo '<td contenteditable="true"> '; 
-													
-													
-													
 													?>
 
-													
-								 
-													<?php
-														$query="Select*from entidades where id_entidad = '$entity';";
-														$resultados=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
-														$j = 0;
-														$i=1;
-														while ($row=mysqli_fetch_array($resultados))
-															{
-																$namentity=$row['marca_entidad'];
-																$entid=$row['entidad'];
-																echo '<input name= "ent__'.$Star.'" class ="form-control" readonly value="'.$namentity.'-'.$entid.'">';
-																				
-																?>
-																	
-													
-																<?php  $j++;
-													} ?>
-				
-				
-			
-				
-				
-													
-				
-														
-				
-														
-														
-														
-				
-														
-																			  
-												
-
-
-
-
+						
 
 
 
 
 <?php
-													echo '<td contenteditable="true"> <input readonly name= "desc_'.$Star.'" class ="form-control"  value= "'.$desc.'"></td>';
-													
-													 echo  '<input   name="id_detalle_nota_egreso_'.$Star.'" value="'.$id_detalle_nota_egreso.'" type="hidden">';
-													$Star++;
-													
-															
+	
 													
 																				}
 													
@@ -1059,6 +887,56 @@ function myFunction() {
 				
 			</div>
 			</div>
+
+
+
+
+			<span class="form-inline" id="invoiceItem">
+        <div class="form-group" style="font-size:20px">
+            <label>Gran total: &nbsp;</label>
+            <div class="input-group">
+                <div class="input-group-addon currency"><div style="font-size:20px">$</div></div>
+				
+
+<input readonly value="
+<?php
+
+
+
+if (isset($venta_total)){echo $venta_total; }else {}?>"
+ type="text" class="form-control" name="ruta" id="nombrecliente" placeholder="0.00" autocomplete="off" >
+														
+
+			
+              </div>
+
+			  <div class="input-group">
+                <div class="input-group-addon currency"><div style="font-size:20px">Abono</div></div>
+				
+
+<input readonly value="
+<?php
+
+
+
+if (isset($venta_total)){echo $venta_total; }else {}?>"
+ type="text" class="form-control" name="ruta" id="nombrecliente" placeholder="0.00" autocomplete="off" >
+														
+
+			
+              </div>
+
+
+
+
+
+        </div>
+        
+    </span>
+
+
+
+
 			<div class="">	
 			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 			
