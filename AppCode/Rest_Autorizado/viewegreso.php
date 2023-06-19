@@ -904,23 +904,18 @@ $i=1;
 
 
 if (isset($venta_total)){echo $venta_total; }else {}?>"
- type="text" class="form-control" name="ruta" id="nombrecliente" placeholder="0.00" autocomplete="off" >
+ type="text" class="form-control" name="ventasql" id="ventasql" placeholder="0.00" autocomplete="off" >
 														
 
 			
               </div>
-
+			  <label>Abono: &nbsp;</label>
 			  <div class="input-group">
-                <div class="input-group-addon currency"><div style="font-size:20px">Abono</div></div>
+                <div class="input-group-addon currency"><div style="font-size:20px">$</div></div>
 				
-
-<input readonly value="
-<?php
+				<input class="form-control" id= "txtabono" type="number" name="txtabono" placeholder="txtabono" autocomplete="off" min="0" step="0.01" max="99999" >
 
 
-
-if (isset($venta_total)){echo $venta_total; }else {}?>"
- type="text" class="form-control" name="ruta" id="nombrecliente" placeholder="0.00" autocomplete="off" >
 														
 
 			

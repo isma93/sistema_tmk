@@ -15,7 +15,7 @@ $codigo=$_POST["codigo"];
 $p_precio=$_POST["p_precio"];
 $nombreProducto=$_POST["nombreProducto"];
 $cantidad=$_POST["cantidad"];
-$Entidad=$_POST["Entidad"];
+//$Entidad=$_POST["Entidad"];
 //$descripPromocion=$_POST["descripPromocion"];
 
 
@@ -71,7 +71,7 @@ if ($repetido==false){
 									$_SESSION['codigo'.$u]=$codigo;
 									$_SESSION['nombreProducto'.$u]=$nombreProducto;
 									$_SESSION['cantidad'.$u]=$cantidad;					
-									$_SESSION['Entidad'.$u]=$Entidad;
+									//$_SESSION['Entidad'.$u]=$Entidad;
 									//$_SESSION['descripPromocion'.$u]=$descripPromocion;
 									$_SESSION['P_PRECIO'.$u]=$p_precio;
 									$_SESSION['SUBTOTAL'.$u]=$p_precio*$cantidad;

@@ -44,6 +44,7 @@
 				$notas=$_SESSION['notas'];
 				$_SESSION['ultcontador']=$_SESSION['ultcontador']+1;
                 $codificador = $_SESSION['codigo_empleado'].'-'.$_SESSION['ultcontador'];
+				$saldo = $_SESSION['GRANTOTALVAR'];
 				
 				$y=$_SESSION['ultcontador'];
 
@@ -95,8 +96,8 @@ try{
 		date_default_timezone_set('America/El_Salvador');    
 		$DateAndTime = date('Y-m-d H:i:s ', time());  
 
-				$query="insert into tmk_desalojo (fecha_sistema, fecha_desalojo, id_cliente,  id_empleado,id_ultimo_estado,notas, id_interno_desalojo) 
-				values ('$DateAndTime','$DateAndTime','$idcliente','$id_employe','1','$notas','$codificador');";
+				$query="insert into tmk_desalojo (fecha_sistema, fecha_desalojo, id_cliente,  id_empleado,id_ultimo_estado,notas, id_interno_desalojo, saldo) 
+				values ('$DateAndTime','$DateAndTime','$idcliente','$id_employe','1','$notas','$codificador','$saldo');";
 				$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
 		}}catch (Exception $e){}
 				if ($resultado)

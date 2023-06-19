@@ -258,8 +258,9 @@ function myFunction() {
                     <th width="10%" >Código</th>
                         <th width="15%">Fecha de Ingreso</th>
                         <th width="30%">Empleado</th>div
-                        <th width="30%">Nombre cliente</th>                             
-                        <th width="30%">Monto desalojo</th>
+                        <th width="27%">Nombre cliente</th>                             
+                        <th width="10%">Monto</th>
+                        <th width="10%">Saldo</th>
                         <th width="35%">Estado</th>
                         <th width="25%">Ver</th>
                       
@@ -280,7 +281,7 @@ function myFunction() {
                                       }else {
                                       //Modulo 5 = Vendedores, mercaderistas, etc.
                                         if ($_SESSION['Modulo']== 5){
-                                      $query="select*from VIEW_TMK_LISTAR_DESALOJOS_INGRESADOS";
+                                      $query="select*from VIEW_TMK_LISTAR_DESALOJOS_REVISADOS";
                                       $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
                                         }   
                                         else{
@@ -312,7 +313,7 @@ function myFunction() {
                                             
                                                 echo '<td> '; echo $row['nombre_cliente'];echo '</td>';
                                                 echo '<td> '; echo '$ '; echo $row['venta'];echo '</td>';
-                                                
+                                                echo '<td> '; echo '$ '; echo $row['saldo'];echo '</td>';
                                                       
 
                                                         
