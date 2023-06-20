@@ -69,7 +69,7 @@
 
  $reportes='<a href="./Reporting/Report_master.php"><i class="fa fa-line-chart" aria-hidden="true"></i> Reportes</a>';
  $about ='<a href="#about"><i class="fa fa-rss" aria-hidden="true"></i> About</a>';
- $inventario ='<a href="#about"><i class="fa fa-rss" aria-hidden="true"></i> Inventrio</a>';
+ $inventario ='<a href="./AppCode/inventario.php"><i class="fa fa-book" aria-hidden="true"></i>Inventario</a>';
 
  if (isset($_SESSION['Modulo']))
 			

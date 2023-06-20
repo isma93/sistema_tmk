@@ -7,15 +7,14 @@
 </head>
 <body>
     <?php
-    //conexión base de datos
-    <?php
+    // Conexión base de datos
 	$servidor="localhost";
 	$usuario="ILP";
 	$contrasena="RolsRoyceIlp24";
 	$basededatos="u238990831_nota_egreso";
 
     // Creación de conexión
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($localhost, $ILP, $RolsRoyceIlp24, $u238990831_nota_egreso);
 
     // Verifica la conexión
     if ($conn->connect_error) {
@@ -23,7 +22,7 @@
     }
 
     // Consulta para obtener los datos del inventario
-    $sql = "SELECT * FROM inventario";  
+    $sql = "SELECT * FROM tmk_inventarios";  
     $result = $conn->query($sql);
     ?>
 
@@ -53,7 +52,7 @@
         ?>
     </table>
 
-    //<!-- Agrega el script para mostrar la alerta de confirmación -->//
+    <!-- Agrega el script para mostrar la alerta de confirmación -->
     <script>
     //sweet alert
     function confirmEdit() {
