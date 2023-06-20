@@ -102,6 +102,8 @@ function ancla()
  $modulo_aut='<a class="active" href="#"><i class="fa fa-book" aria-hidden="true"></i> Módulo de Liquidación</a>'; 
  $reportes='<a href="../../Reporting/Report_master.php"><i class="fa fa-line-chart" aria-hidden="true"></i> Reportes</a>';
  $about ='<a href="#about"><i class="fa fa-rss" aria-hidden="true"></i> About</a>';
+ $inventario ='<a href="#about"><i class="fa fa-rss" aria-hidden="true"></i> Inventrio</a>';
+
  if (isset($_SESSION['Modulo']))
 			
  {
@@ -110,8 +112,12 @@ function ancla()
    {
 	   if ($_SESSION['Modulo']==1)
 	   {
-		echo $ingresar_nota;
+			echo $ingresar_nota;
+		echo $modulo_aut;
+		echo $inventario;
+    
 		echo $about;
+
 	   } else if ($_SESSION['Modulo']==2)
 	   {
 		echo $ingresar_nota;
@@ -189,7 +195,7 @@ function myFunction() {
 <div class="load-animate animated fadeInUp">
 			<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-			<center><h1>Pendientes de autorizar</h1></center>
+			<center><h1>Pendientes de Liquidar</h1></center>
 			</div>		    		
 			</div>
 			<input id="currency" type="hidden" value="$">
@@ -252,8 +258,9 @@ function myFunction() {
                     <th width="10%" >Código</th>
                         <th width="15%">Fecha de Ingreso</th>
                         <th width="30%">Empleado</th>div
-                        <th width="30%">Nombre cliente</th>                             
-                        <th width="30%">Monto desalojo</th>
+                        <th width="27%">Nombre cliente</th>                             
+                        <th width="10%">Monto</th>
+                        <th width="10%">Saldo</th>
                         <th width="35%">Estado</th>
                         <th width="25%">Ver</th>
                       
@@ -262,55 +269,67 @@ function myFunction() {
                     <tbody class="buscar">
                                     <tr>
                                         <?php
-                                        
-                                                                 if (isset($_SESSION['min'])){
-                                                                      if (isset($_SESSION['max'])){
-                                                                          $min = $_SESSION['min'];
-                                                                          $max =$_SESSION['max'];
-                                                                          $query="call SP_TMK_LISTAR_REMISION_PADRE_CON_FECHA('$min','$max','$id_padre')";
-                                                  $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
-                                                  
-                                                                      }
-                                                                  }else {
-                                                                  $query="call listarRevision()";
-                                                                  $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canale1s");
-                                                                        
-                                                                      }
-                                            
+                                      $id_empleado=  $_SESSION['codigo_empleado'];
+                                        if (isset($_SESSION['min'])){
+                                          if (isset($_SESSION['max'])){
+                                              $min = $_SESSION['min'];
+                                              $max =$_SESSION['max'];
+                                              $query="call SP_TMK_LISTAR_REMISION_TODAS_CON_FECHA('$min','$max')";
+                      $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
+                      
+                                          }
+                                      }else {
+                                      //Modulo 5 = Vendedores, mercaderistas, etc.
+                                        if ($_SESSION['Modulo']== 5){
+                                      $query="select*from VIEW_TMK_LISTAR_DESALOJOS_REVISADOS";
+                                      $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
+                                        }   
+                                        else{
+
+                                          $query="call SP_TMK_LISTAR_DESALOJOS_REVISADOS_X_USUARIOS('$id_empleado');";
+                                          $resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los canales");
+
+
+                                          //aca iran los datos de los desalojos ingresados por impulsadoras
+
+                                        }
+                                          }
+
 
 
 
 
                                                 $i = 0;
                                                 while ($row=mysqli_fetch_array($resultado))
-                                                    {
-                                                        echo '<tr>';
-                                                        $idenvi=$row['id_nota_egreso_interna'];
-                                                    echo '<td> '; echo $row['id_nota_egreso_interna'];echo '</td>';
-                                                    
-                                                    echo '<td> '; echo $row['fecha_ingreso'];echo '</td>';
-                                                    echo '<td> '; echo $row['nombre'];echo '</td>';
-
-                                                    
+                                                {
+                                                    echo '<tr>';
+                                                    $idenvi=$row['id_interno_desalojo'];
+                                                echo '<td> '; echo $row['id_interno_desalojo'];echo '</td>';
                                                 
-                                                    echo '<td> '; echo $row['nombre_cliente'];echo '</td>';
-                                                    echo '<td> '; echo $row['ruta'];echo '</td>';
-                                                    
-                                                          
+                                                echo '<td> '; echo $row['fecha_sistema'];echo '</td>';
+                                                echo '<td> '; echo $row['nombre'];echo '</td>';
 
-                                                            
+                                                
+                                            
+                                                echo '<td> '; echo $row['nombre_cliente'];echo '</td>';
+                                                echo '<td> '; echo '$ '; echo $row['venta'];echo '</td>';
+                                                echo '<td> '; echo '$ '; echo $row['saldo'];echo '</td>';
+                                                      
 
-                                                   
-                                                    if ($row['id_estado']=1){
-                                                        echo '<td> '; echo "Autorizacion Pendiente";echo '</td>';
-                                                                                }
-                                                    
-                                                    ?> <td>  <a class="btn btn-success" href='viewegreso.php?id=<?php echo $idenvi;?>&com=<?php echo $i ?>' ><i class="fa fa-eye"></i> Ver</a> <?php echo '</td>';
-                                                    ?> <?php
                                                         
-                                                        $i++;   
-                                                    echo    '</tr>';                
-                                                    }
+
+                                               
+                                                if ($row['id_estado']=1){
+                                                    echo '<td> '; echo "Liquidar";echo '</td>';
+                                                                            }
+                                                
+                                                ?> <td>  <a class="btn btn-success" href='viewegreso.php?id=<?php echo $idenvi;?>&com=<?php echo $i ?>' ><i class="fa fa-eye"></i> Ver</a> <?php echo '</td>';
+                                                ?> <?php
+                                                    
+                                                    $i++;   
+                                                echo    '</tr>';                
+                                                }
+                                            
                                                 
                                                     
                                                         

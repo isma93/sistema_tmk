@@ -32,7 +32,8 @@ if (isset($_SESSION['contado'])){
 				
 				
 				$clientelista=$_POST['clienteseleccionado'];
-				$query="call SP_TMK_LISTAR_CLIENTE_SELECCIONADO ('$clientelista')";
+				$codigo_empleado = $_SESSION['codigo_empleado'];
+				$query="call SP_TMK_LISTAR_CLIENTE_SELECCIONADO ('$clientelista','$codigo_empleado')";
 				$resultado=mysqli_query( $conexion, $query ) or die ( "No se pueden mostrar los registros");
 
 				if ($resultado){
