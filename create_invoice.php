@@ -683,22 +683,6 @@ function myFunction() {
 	
 
 	?>
-						<select tabindex="3" name="filtromarca" id="filtromarca" class="form-control" onchange="filterProductsByBrand()">
-    <option value="0">Seleccione Marca..</option>
-    <?php
-	
-	$variableprod23 = $_SESSION['id_cliente'];
-    $query = "call SP_TMK_LISTAR_MARCA_PRODUCTO_CLIENTE ('$variableprod23');";
-    $resultado = mysqli_query($conexion, $query) or die("Error de base de datos");
-    $p2 = 1;
-    while ($row = mysqli_fetch_array($resultado)) {
-        ?>
-        <option value="<?php echo $row['marca_producto']; ?>"><?php echo $row['categoria_producto']. " - " .$row['marca_producto']; ?></option>
-        <?php $p2++;
-    }
-    mysqli_next_result($conexion);
-    ?>
-</select>
 <br>
 <script>
 function filterProductsByBrand() {
@@ -726,6 +710,23 @@ function filterProductsByBrand() {
     <button class="tn btn-info btn-lg btn-block" name="BuscarProducto" onclick="location.href='BuscarProducto.php'">Seleccionar producto</button>
 </div>
 
+						<select tabindex="3" name="filtromarca" id="filtromarca" class="form-control" onchange="filterProductsByBrand()">
+    <option value="0">Seleccione Marca..</option>
+    <?php
+	
+	$variableprod23 = $_SESSION['id_cliente'];
+    $query = "call SP_TMK_LISTAR_MARCA_PRODUCTO_CLIENTE ('$variableprod23');";
+    $resultado = mysqli_query($conexion, $query) or die("Error de base de datos");
+    $p2 = 1;
+    while ($row = mysqli_fetch_array($resultado)) {
+        ?>
+        <option value="<?php echo $row['marca_producto']; ?>"><?php echo $row['categoria_producto']. " - " .$row['marca_producto']; ?></option>
+        <?php $p2++;
+    }
+    mysqli_next_result($conexion);
+    ?>
+</select>
+<br>
 <div>
     <select name="te" id="te" class="form-control">
         <option value="0">Seleccione Producto</option>
@@ -867,9 +868,6 @@ function filterProductsByBrand() {
 			</div>
 			<div class="row">
 			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-
-			
-				
 				
 			</div>
 			</div>
